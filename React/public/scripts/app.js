@@ -8,84 +8,87 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-console.log("magic-8-ball.js is running");
+console.log("todo-list.js is running");
 
-var inputStyle = {
+var textAreaStyles = {
   width: 235,
   margin: 5
 };
 
-var MagicEightBall = function (_React$Component) {
-  _inherits(MagicEightBall, _React$Component);
+var MyToDoList = function (_React$Component) {
+  _inherits(MyToDoList, _React$Component);
 
-  function MagicEightBall(props) {
-    _classCallCheck(this, MagicEightBall);
+  function MyToDoList(props) {
+    _classCallCheck(this, MyToDoList);
 
-    var _this = _possibleConstructorReturn(this, (MagicEightBall.__proto__ || Object.getPrototypeOf(MagicEightBall)).call(this, props));
+    // change code below this line
+    var _this = _possibleConstructorReturn(this, (MyToDoList.__proto__ || Object.getPrototypeOf(MyToDoList)).call(this, props));
 
     _this.state = {
       userInput: '',
-      randomIndex: ''
-    };
-    _this.ask = _this.ask.bind(_this);
+      toDoList: []
+      // change code above this line
+    };_this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
     return _this;
   }
 
-  _createClass(MagicEightBall, [{
-    key: 'ask',
-    value: function ask() {
-      if (this.state.userInput) {
-        this.setState({
-          randomIndex: Math.floor(Math.random() * 20),
-          userInput: ''
-        });
-      }
+  _createClass(MyToDoList, [{
+    key: 'handleSubmit',
+    value: function handleSubmit() {
+      var itemsArray = this.state.userInput.split(',');
+      this.setState({
+        toDoList: itemsArray
+      });
     }
   }, {
     key: 'handleChange',
-    value: function handleChange(event) {
+    value: function handleChange(e) {
       this.setState({
-        userInput: event.target.value
+        userInput: e.target.value
       });
     }
   }, {
     key: 'render',
     value: function render() {
-      var possibleAnswers = ['It is certain', 'It is decidedly so', 'Without a doubt', 'Yes, definitely', 'You may rely on it', 'As I see it, yes', 'Outlook good', 'Yes', 'Signs point to yes', 'Reply hazy try again', 'Ask again later', 'Better not tell you now', 'Cannot predict now', 'Concentrate and ask again', 'Don\'t count on it', 'My reply is no', 'My sources say no', 'Most likely', 'Outlook not so good', 'Very doubtful'];
-      var answer = possibleAnswers[this.state.randomIndex]; // << change code here
+      var items = this.state.toDoList.map(function (item) {
+        return React.createElement(
+          'li',
+          null,
+          item
+        );
+      });
       return React.createElement(
         'div',
         null,
-        React.createElement('input', {
-          type: 'text',
-          value: this.state.userInput,
+        React.createElement('textarea', {
           onChange: this.handleChange,
-          style: inputStyle }),
+          value: this.state.userInput,
+          style: textAreaStyles,
+          placeholder: 'Separate Items With Commas' }),
         React.createElement('br', null),
         React.createElement(
           'button',
-          { onClick: this.ask },
-          'Ask the Magic Eight Ball!'
-        ),
-        React.createElement('br', null),
-        React.createElement(
-          'h3',
-          null,
-          'Answer:'
+          { onClick: this.handleSubmit },
+          'Create List'
         ),
         React.createElement(
-          'p',
+          'h1',
           null,
-          answer
+          'My "To Do" List:'
+        ),
+        React.createElement(
+          'ul',
+          null,
+          items
         )
       );
     }
   }]);
 
-  return MagicEightBall;
+  return MyToDoList;
 }(React.Component);
 
 ;
 
-ReactDOM.render(React.createElement(MagicEightBall, null), document.getElementById('app'));
+ReactDOM.render(React.createElement(MyToDoList, null), document.getElementById('app'));
