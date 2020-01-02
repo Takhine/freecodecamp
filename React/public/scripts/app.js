@@ -8,53 +8,32 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-console.log("Counter.js is running");
+console.log("Input.js is running");
 
-var Counter = function (_React$Component) {
-  _inherits(Counter, _React$Component);
+var ControlledInput = function (_React$Component) {
+  _inherits(ControlledInput, _React$Component);
 
-  function Counter(props) {
-    _classCallCheck(this, Counter);
+  function ControlledInput(props) {
+    _classCallCheck(this, ControlledInput);
 
-    var _this = _possibleConstructorReturn(this, (Counter.__proto__ || Object.getPrototypeOf(Counter)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (ControlledInput.__proto__ || Object.getPrototypeOf(ControlledInput)).call(this, props));
 
     _this.state = {
-      count: 0
+      input: ''
     };
     // change code below this line
-    _this.increment = _this.increment.bind(_this);
-    _this.decrement = _this.decrement.bind(_this);
-    _this.reset = _this.reset.bind(_this);
-
+    _this.handleChange = _this.handleChange.bind(_this);
     // change code above this line
     return _this;
   }
   // change code below this line
 
 
-  _createClass(Counter, [{
-    key: 'increment',
-    value: function increment() {
-      this.setState(function (state) {
-        return {
-          count: state.count + 1
-        };
-      });
-    }
-  }, {
-    key: 'decrement',
-    value: function decrement() {
-      this.setState(function (state) {
-        return {
-          count: state.count - 1
-        };
-      });
-    }
-  }, {
-    key: 'reset',
-    value: function reset() {
+  _createClass(ControlledInput, [{
+    key: 'handleChange',
+    value: function handleChange(event) {
       this.setState({
-        count: 0
+        input: event.target.value
       });
     }
     // change code above this line
@@ -65,34 +44,24 @@ var Counter = function (_React$Component) {
       return React.createElement(
         'div',
         null,
+        React.createElement('input', { value: this.state.input, onChange: this.handleChange }),
         React.createElement(
-          'button',
-          { className: 'inc', onClick: this.increment },
-          'Increment!'
-        ),
-        React.createElement(
-          'button',
-          { className: 'dec', onClick: this.decrement },
-          'Decrement!'
-        ),
-        React.createElement(
-          'button',
-          { className: 'reset', onClick: this.reset },
-          'Reset'
-        ),
-        React.createElement(
-          'h1',
+          'h4',
           null,
-          'Current Count: ',
-          this.state.count
+          'Controlled Input:'
+        ),
+        React.createElement(
+          'p',
+          null,
+          this.state.input
         )
       );
     }
   }]);
 
-  return Counter;
+  return ControlledInput;
 }(React.Component);
 
 ;
 
-ReactDOM.render(React.createElement(Counter, null), document.getElementById('app'));
+ReactDOM.render(React.createElement(ControlledInput, null), document.getElementById('app'));
